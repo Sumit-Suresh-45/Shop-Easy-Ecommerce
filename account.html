@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - ShopEasy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <main class="py-5 bg-light min-vh-100">
+        <div class="container">
+            <h1 class="h3 mb-4">My Account</h1>
+            
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush rounded">
+                                <a href="#profile" class="list-group-item list-group-item-action active d-flex align-items-center py-3" data-bs-toggle="tab">
+                                    <i class="fas fa-user-circle me-3"></i> Profile Overview
+                                </a>
+                                <a href="#orders" class="list-group-item list-group-item-action d-flex align-items-center py-3" data-bs-toggle="tab">
+                                    <i class="fas fa-shopping-bag me-3"></i> Order History
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 text-danger" id="accountSignOut">
+                                    <i class="fas fa-sign-out-alt me-3"></i> Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="col-lg-9">
+                    <div class="tab-content">
+                        <!-- Profile Tab -->
+                        <div class="tab-pane fade show active" id="profile">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="mb-0">Profile Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3 text-muted">Full Name</div>
+                                        <div class="col-sm-9 fw-bold" id="profile-name">Loading...</div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3 text-muted">Email Address</div>
+                                        <div class="col-sm-9 fw-bold" id="profile-email">Loading...</div>
+                                    </div>
+                                    <div class="row mb-0">
+                                        <div class="col-sm-3 text-muted">Account Type</div>
+                                        <div class="col-sm-9">
+                                            <span class="badge bg-primary px-3" id="profile-role">User</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders Tab -->
+                        <div class="tab-pane fade" id="orders">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-header bg-white py-3">
+                                    <h5 class="mb-0">Recent Orders</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0 align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th class="ps-4">Order ID</th>
+                                                    <th>Date</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th class="text-end pe-4">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="orders-list">
+                                                <!-- Orders will be loaded here -->
+                                                <tr>
+                                                    <td colspan="5" class="text-center py-5">
+                                                        <div class="spinner-border text-primary spinner-border-sm me-2"></div> Loading orders...
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script type="module" src="assets/js/app.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header and footer components
+            fetch('components/header.html')
+                .then(r => r.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    setTimeout(initializeApp, 100);
+                });
+
+            fetch('components/footer.html')
+                .then(r => r.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                });
+                
+            // Logout handler
+            document.getElementById('accountSignOut')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('signOutBtn')?.click();
+                setTimeout(() => window.location.href = 'index.html', 500);
+            });
+        });
+    </script>
+</body>
+</html>
