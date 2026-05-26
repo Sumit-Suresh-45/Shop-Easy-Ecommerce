@@ -541,3 +541,16 @@ body {
     border-radius: 1.5rem !important;
 }
 
+/* Offcanvas Sidebar Responsiveness styles */
+@media (max-width: 991.98px) {
+  .offcanvas-lg.offcanvas-start {
+    max-width: 300px;
+  }
+  .offcanvas-lg.offcanvas-start .filter-sidebar {
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+

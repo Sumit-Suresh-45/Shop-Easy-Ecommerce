@@ -134,21 +134,33 @@ function renderCartPage() {
     const stock = p.stock || 10;
     return `
       <div class="cart-item">
-        <div class="row align-items-center">
-          <div class="col-md-2"><img src="${imgSrc}" class="img-fluid rounded" alt="${p.title}"></div>
-          <div class="col-md-4"><h6 class="mb-1">${p.title}</h6><p class="text-muted small mb-0">${p.brand}</p></div>
-          <div class="col-md-2"><span class="fw-bold">$${price.toFixed(2)}</span></div>
-          <div class="col-md-2">
+        <div class="row align-items-center g-3">
+          <div class="col-3 col-md-2">
+            <img src="${imgSrc}" class="img-fluid rounded" style="max-height:80px;object-fit:contain;" alt="${p.title}">
+          </div>
+          <div class="col-9 col-md-4">
+            <h6 class="mb-1" style="font-size:0.95rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${p.title}</h6>
+            <p class="text-muted small mb-0">${p.brand}</p>
+          </div>
+          <div class="col-4 col-md-2 text-md-center">
+            <span class="text-muted d-md-none small d-block">Price</span>
+            <span class="fw-bold">$${price.toFixed(2)}</span>
+          </div>
+          <div class="col-4 col-md-1">
+            <span class="text-muted d-md-none small d-block">Qty</span>
             <select class="form-select form-select-sm" onchange="updateCartQuantity('${item.id}', this.value)">
               ${Array.from({ length: Math.min(stock, 10) }, (_, i) =>
                 `<option value="${i + 1}" ${i + 1 === item.qty ? 'selected' : ''}>${i + 1}</option>`
               ).join('')}
             </select>
           </div>
-          <div class="col-md-2"><span class="fw-bold">$${lineTotal}</span></div>
-          <div class="col-md-1">
-            <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart('${item.id}')">
-              <i class="fas fa-trash"></i>
+          <div class="col-4 col-md-2 text-end text-md-center">
+            <span class="text-muted d-md-none small d-block">Total</span>
+            <span class="fw-bold">$${lineTotal}</span>
+          </div>
+          <div class="col-12 col-md-1 text-end">
+            <button class="btn btn-outline-danger btn-sm w-100 w-md-auto" onclick="removeFromCart('${item.id}')" title="Remove item">
+              <i class="fas fa-trash me-1"></i><span class="d-md-none">Remove</span>
             </button>
           </div>
         </div>
@@ -201,7 +213,15 @@ async function initializeApp() {
     const currentPage = getCurrentPage();
     switch (currentPage) {
       case 'index':         renderFeaturedProducts(); break;
-      case 'shop':          renderShopPage(); break;
+      case 'shop':
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('category');
+        if (catParam) {
+          const radio = document.querySelector(`input[name="category"][value="${catParam}"]`);
+          if (radio) radio.checked = true;
+        }
+        renderShopPage();
+        break;
       case 'product':       renderProductPage(); break;
       case 'cart':          renderCartPage(); break;
       case 'checkout':      initializeCheckout(); break;
@@ -643,7 +663,11 @@ async function processPayment() {
 
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Expose initializeApp globally for the inline header/footer loader scripts
+// Expose functions globally for the inline header/footer loader scripts and event listeners
 window.initializeApp    = initializeApp;
 window.initializePayment = initializePayment;
 window.processPayment    = processPayment;
+window.renderShopPage   = renderShopPage;
+window.renderFeaturedProducts = renderFeaturedProducts;
+window.renderProductPage = renderProductPage;
+window.renderCartPage   = renderCartPage;

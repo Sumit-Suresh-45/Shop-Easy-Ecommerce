@@ -31,84 +31,98 @@
             <div class="row">
                 <!-- Filter Sidebar -->
                 <div class="col-lg-3">
-                    <div class="filter-sidebar">
-                        <h5 class="filter-title">Filters</h5>
-                        
-                        <!-- Categories -->
-                        <div class="filter-section">
-                            <h6 class="filter-title">Categories</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" id="all-categories" value="" checked>
-                                <label class="form-check-label" for="all-categories">
-                                    All Categories
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" id="electronics" value="Electronics">
-                                <label class="form-check-label" for="electronics">
-                                    Electronics
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" id="books" value="Books">
-                                <label class="form-check-label" for="books">
-                                    Books
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" id="fashion" value="Fashion">
-                                <label class="form-check-label" for="fashion">
-                                    Fashion
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="category" id="home" value="Home">
-                                <label class="form-check-label" for="home">
-                                    Home & Garden
-                                </label>
+                    <!-- Toggle Button for Mobile -->
+                    <button class="btn btn-outline-primary d-lg-none w-100 mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterSidebar" aria-controls="filterSidebar">
+                        <i class="fas fa-filter me-2"></i>Show Filters
+                    </button>
+
+                    <!-- Responsive Offcanvas Sidebar -->
+                    <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="filterSidebar" aria-labelledby="filterSidebarLabel" style="background: white;">
+                        <div class="offcanvas-header border-bottom d-lg-none">
+                            <h5 class="offcanvas-title fw-bold" id="filterSidebarLabel">Filters</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#filterSidebar" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body p-3 p-lg-0 flex-column">
+                            <div class="filter-sidebar w-100">
+                                <h5 class="filter-title d-none d-lg-block">Filters</h5>
+                                
+                                <!-- Categories -->
+                                <div class="filter-section">
+                                    <h6 class="filter-title">Categories</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" id="all-categories" value="" checked>
+                                        <label class="form-check-label" for="all-categories">
+                                            All Categories
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" id="electronics" value="Electronics">
+                                        <label class="form-check-label" for="electronics">
+                                            Electronics
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" id="books" value="Books">
+                                        <label class="form-check-label" for="books">
+                                            Books
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" id="fashion" value="Fashion">
+                                        <label class="form-check-label" for="fashion">
+                                            Fashion
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" id="home" value="Home">
+                                        <label class="form-check-label" for="home">
+                                            Home & Garden
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Price Range -->
+                                <div class="filter-section">
+                                    <h6 class="filter-title">Price Range</h6>
+                                    <input type="range" class="form-range price-range" min="0" max="200" value="200" id="priceRange">
+                                    <div class="d-flex justify-content-between">
+                                        <span>$0</span>
+                                        <span id="priceValue">$200</span>
+                                    </div>
+                                </div>
+
+                                <!-- Brands -->
+                                <div class="filter-section">
+                                    <h6 class="filter-title">Brands</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brand" id="soundtech" value="SoundTech">
+                                        <label class="form-check-label" for="soundtech">
+                                            SoundTech
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brand" id="techguard" value="TechGuard">
+                                        <label class="form-check-label" for="techguard">
+                                            TechGuard
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brand" id="styleco" value="StyleCo">
+                                        <label class="form-check-label" for="styleco">
+                                            StyleCo
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="brand" id="homebrew" value="HomeBrew">
+                                        <label class="form-check-label" for="homebrew">
+                                            HomeBrew
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-100" onclick="clearFilters()">Clear All Filters</button>
                             </div>
                         </div>
-
-                        <!-- Price Range -->
-                        <div class="filter-section">
-                            <h6 class="filter-title">Price Range</h6>
-                            <input type="range" class="form-range price-range" min="0" max="200" value="200" id="priceRange">
-                            <div class="d-flex justify-content-between">
-                                <span>$0</span>
-                                <span id="priceValue">$200</span>
-                            </div>
-                        </div>
-
-                        <!-- Brands -->
-                        <div class="filter-section">
-                            <h6 class="filter-title">Brands</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="brand" id="soundtech" value="SoundTech">
-                                <label class="form-check-label" for="soundtech">
-                                    SoundTech
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="brand" id="techguard" value="TechGuard">
-                                <label class="form-check-label" for="techguard">
-                                    TechGuard
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="brand" id="styleco" value="StyleCo">
-                                <label class="form-check-label" for="styleco">
-                                    StyleCo
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="brand" id="homebrew" value="HomeBrew">
-                                <label class="form-check-label" for="homebrew">
-                                    HomeBrew
-                                </label>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary w-100" onclick="clearFilters()">Clear All Filters</button>
                     </div>
                 </div>
 

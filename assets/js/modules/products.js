@@ -16,8 +16,8 @@ export async function loadProducts() {
 export function getFilteredProducts() {
   let filtered = [...state.products];
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const categoryFilter = urlParams.get('category');
+  const selectedCategory = document.querySelector('input[name="category"]:checked');
+  const categoryFilter = selectedCategory ? selectedCategory.value : '';
   if (categoryFilter) {
     filtered = filtered.filter(p => p.category === categoryFilter);
   }

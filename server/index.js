@@ -64,6 +64,15 @@ const startServer = async () => {
     await connectDB();
     await sequelize.sync({ alter: true });
     console.log('✅ Database tables synced.');
+
+    // Auto-seed if database is empty
+    const Product = require('./models/Product');
+    const count = await Product.count();
+    if (count === 0) {
+      console.log('🌱 Database is empty. Running auto-seed...');
+      const seedDB = require('./seed');
+      await seedDB();
+    }
   } catch (err) {
     console.error('⚠️  DB connection failed — API routes will not work:', err.message);
     console.error('   Check DB_HOST, DB_USER, DB_PASSWORD, DB_NAME env vars.');
