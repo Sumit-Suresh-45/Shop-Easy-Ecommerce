@@ -189,7 +189,12 @@ function renderCartPage() {
 
 // ─── Page Initialization ─────────────────────────────────────
 
+let _appInitialized = false;
+
 async function initializeApp() {
+  if (_appInitialized) return;
+  _appInitialized = true;
+
   try {
     await loadProducts();
     await loadCurrentUser();
