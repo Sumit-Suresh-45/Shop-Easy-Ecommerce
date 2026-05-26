@@ -1,7 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const { connectDB, sequelize } = require('./config/db');
 
 // Import models (to register them with Sequelize)
@@ -52,17 +52,22 @@ app.get('*', (req, res) => {
 
 // ─── Start Server ─────────────────────────────────────────────
 const startServer = async () => {
-  await connectDB();
-
-  // Sync all models (create tables if not exist)
-  await sequelize.sync({ alter: true });
-  console.log('✅ Database tables synced.');
-
+  // Start HTTP server first so static files are always served
   app.listen(PORT, () => {
     console.log(`\n🚀 ShopEasy Server running at http://localhost:${PORT}`);
     console.log(`📦 API available at   http://localhost:${PORT}/api`);
     console.log(`🛠️  Admin Panel at     http://localhost:${PORT}/admin\n`);
   });
+
+  // Then connect to DB (non-blocking — server stays up even if DB fails)
+  try {
+    await connectDB();
+    await sequelize.sync({ alter: true });
+    console.log('✅ Database tables synced.');
+  } catch (err) {
+    console.error('⚠️  DB connection failed — API routes will not work:', err.message);
+    console.error('   Check DB_HOST, DB_USER, DB_PASSWORD, DB_NAME env vars.');
+  }
 };
 
 startServer();

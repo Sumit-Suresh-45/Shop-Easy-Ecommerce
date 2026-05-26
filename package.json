@@ -1,0 +1,13 @@
+{
+  "name": "shopeasy-ecommerce",
+  "version": "1.0.0",
+  "description": "ShopEasy Ecommerce Application",
+  "main": "server/index.js",
+  "scripts": {
+    "build": "npm install --prefix server",
+    "start": "node server/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

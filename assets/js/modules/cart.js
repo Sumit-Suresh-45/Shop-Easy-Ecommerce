@@ -5,9 +5,15 @@ import { showNotification } from './ui.js';
 export async function syncCart() {
   if (!state.currentUser) {
     const raw = localStorage.getItem('se_guest_cart');
-    state.currentCart = raw ? JSON.parse(raw) : [];
-    // If guest cart items don't have product details, they'll need them for rendering.
-    // In a real app, you'd fetch them or store them.
+    const guestCart = raw ? JSON.parse(raw) : [];
+    state.currentCart = guestCart.map(item => {
+      const product = state.products.find(p => p.id === item.id);
+      return {
+        id: item.id,
+        qty: item.qty,
+        product: product || null
+      };
+    }).filter(item => item.product !== null);
     return;
   }
   try {
